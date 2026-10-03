@@ -1,0 +1,30 @@
+# Build Artifacts
+bin/
+*.kex
+*.bin
+*.o
+*.obj
+
+# KolibriOS Virtual Disks & Images
+kolibri.img
+*.img
+*.iso
+*.vdi
+*.qcow2
+
+# macOS System Files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Temporary & Swap Files
+*.tmp
+*.tmp.*
+*~
+*.swp
+*.swo
+
+# Caches & Tooling
+.cache/
+.pre-commit/

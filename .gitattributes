@@ -1,0 +1,20 @@
+# Enforce LF line endings for all text files (critical across macOS, Linux, and KolibriOS)
+* text=auto eol=lf
+
+# Explicit text files
+*.asm text diff=assembly
+*.inc text diff=assembly
+*.sh text eol=lf
+*.md text
+*.yaml text
+*.yml text
+Makefile text
+Justfile text
+Dockerfile text
+
+# Binary formats
+*.kex binary
+*.bin binary
+*.img binary
+*.iso binary
+*.png binary

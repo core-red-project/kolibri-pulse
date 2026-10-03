@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Build & Release Executable
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install FASM & Just
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fasm
+          curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | sudo bash -s -- --to /usr/local/bin
+
+      - name: Run Quality Gate
+        run: just check
+
+      - name: Generate Checksums
+        run: |
+          cd bin
+          sha256sum pulse.kex > pulse.kex.sha256
+          cat pulse.kex.sha256
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            bin/pulse.kex
+            bin/pulse.kex.sha256
+          generate_release_notes: true
+          draft: false
+          prerelease: false
